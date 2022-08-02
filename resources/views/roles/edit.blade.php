@@ -2,73 +2,50 @@
 
 
 @section('content')
-
-<div class="row">
-
-    <div class="col-lg-12 margin-tb">
-
-        <div class="pull-left">
-
-            <h2>Edit Role</h2>
-
-        </div>
-
-        <div class="pull-right">
-
-            <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
-
-        </div>
-
+<div class="col-md-12">
+<div class="card">
+<div class="card-header">
+    <h3>Editer un role</h3>
+    <div class="pull-right">
+        <a class="btn btn-primary" href="{{ route('roles.index') }}"> Retour</a>
     </div>
-
+    <div class="card-header-right">
+        <ul class="list-unstyled card-option">
+            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+            <li><i class="fa fa-window-maximize full-card"></i></li>
+            <li><i class="fa fa-minus minimize-card"></i></li>
+            <li><i class="fa fa-refresh reload-card"></i></li>
+            <li><i class="fa fa-trash close-card"></i></li>
+        </ul>
+    </div>
+                                            
 </div>
 
+    @if (count($errors) > 0)
 
-@if (count($errors) > 0)
+  <div class="alert alert-danger">
+    <strong>Whoops!</strong> Erreur au niveau des entrer.<br><br>
+    <ul>
+       @foreach ($errors->all() as $error)
+         <li>{{ $error }}</li>
 
-    <div class="alert alert-danger">
+       @endforeach
 
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+    </ul>
 
-        <ul>
-
-        @foreach ($errors->all() as $error)
-
-            <li>{{ $error }}</li>
-
-        @endforeach
-
-        </ul>
-
-    </div>
+  </div>
 
 @endif
-
-
+                                       
+<div class="card-block">                                                        
 {!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
-
-<div class="row">
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Name:</strong>
-
-            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
-
+        <div class="form-group form-default form-static-label">
+            <input type="text" name="name" class="form-control" placeholder="Entrer le nom " required="" value="{{$role->name}}">
+                <span class="form-bar"></span>
+                    <label class="float-label">Nom</label>
         </div>
-
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Permission:</strong>
-
-            <br/>
-
+                                              
+        <div class="form-group form-default form-static-label">
             @foreach($permission as $value)
 
                 <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
@@ -78,22 +55,18 @@
             <br/>
 
             @endforeach
-
+                <span class="form-bar"></span>
+                    <label class="float-label">Permission:</label>
         </div>
-
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-
-    </div>
-
+                                                           
+        <div class="form-group form-default form-static-label text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        {!! Form::close() !!}
 </div>
 
-{!! Form::close() !!}
 
-
+<p class="text-center text-primary">Sirba Communication</p>
+</div>
+</div>
 @endsection
-
-<p class="text-center text-primary"><small>Sirba Communication</small></p>

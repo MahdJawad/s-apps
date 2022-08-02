@@ -14,7 +14,9 @@ class CreateCnsssTable extends Migration
     public function up()
     {
         Schema::create('cnsss', function (Blueprint $table) {
-            $table->id();
+            $table->integer('tauxSalarial');
+            $table->integer('plafondSalarial');
+            $table->integer('tauxPatronal');
             $table->timestamps();
         });
     }

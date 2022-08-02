@@ -15,6 +15,13 @@ class CreateContratsTable extends Migration
     {
         Schema::create('contrats', function (Blueprint $table) {
             $table->increments('idContrat');
+            $table->unsignedInteger('idTypeContrat');
+            $table->foreign('idTypeContrat')->references('idTypeContrat')->on('type_contrats');
+            $table->date('dateEmbauche');
+            $table->string('lieuEmbauche');
+            $table->integer('salaireBase');
+            $table->string('modeReglement');
+            $table->string('frequencePaie');
             $table->timestamps();
         });
     }

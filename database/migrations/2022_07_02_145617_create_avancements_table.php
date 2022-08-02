@@ -14,7 +14,10 @@ class CreateAvancementsTable extends Migration
     public function up()
     {
         Schema::create('avancements', function (Blueprint $table) {
-            $table->id();
+            $table->string("num_arrete")->primary();
+            $table->unsignedInteger('idCat');
+            $table->foreign('idCat')->references('idCat')->on('categories');
+            $table->date('dateDecision');
             $table->timestamps();
         });
     }

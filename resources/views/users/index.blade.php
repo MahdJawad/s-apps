@@ -6,7 +6,7 @@
                 <h5>Les utilisateurs</h5>
                 <span> <div class="row">
                 <div class="col-md-6">
-                    <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">
+                    <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary" @click="openModal()">
                         <i class="icofont icofont-user-alt-3"></i> Ajouter un nouveau
                     </a>
                 </div> </span>
@@ -51,9 +51,9 @@
       @endif
 								</td>
             <td style="display: flex">
-              <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Vue</a>
+              <a class="btn btn-info"  >Vue</a>
 
-       <a  class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Modifier</a>
+              <button @click="edit(row)" class="btn btn-sm btn-primary">Edit</button>
        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
 
 {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
@@ -64,6 +64,7 @@
                             @endforeach
                                                         </tbody>
                                                     </table>
+               
                                                     {!! $data->render() !!}
 
 

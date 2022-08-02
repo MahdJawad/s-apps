@@ -16,7 +16,7 @@
                           </div>
                       </div>
                       <a href="index.html">
-                          <img class="img-fluid" src="{{asset('images/logo.png')}}" alt="Theme-Logo" />
+                          <img class="img-fluid" src="{{asset('images/auth/logo-sirba-rh.png')}}" alt="Theme-Logo" style="height: 60px" />
                       </a>
                       <a class="mobile-options waves-effect waves-light">
                           <i class="ti-more"></i>
@@ -58,21 +58,8 @@
                                   <i class="ti-angle-down"></i>
                               </a>
                               <ul class="show-notification profile-notification">
-                                
-                                  <li class="waves-effect waves-light">
-                                      <a href="user-profile.html">
-                                          <i class="ti-user"></i> Profile
-                                      </a>
-                                  </li>
-                                 
-                                  <li class="waves-effect waves-light">
-                                      <a href="auth-lock-screen.html">
-                                          <i class="ti-lock"></i> Lock Screen
-                                      </a>
-                                  </li>
-                             <!-- Authentication Links -->
-
-                                 @guest
+                              @guest
+                              <!-- Authentication Links -->
                                   <li class="waves-effect waves-light">
                                       <a href="{{ route('login') }}">
                                           <i class="ti-layout-sidebar-left"></i> {{ __('Login') }}
@@ -84,12 +71,24 @@
                                       </a>
                                   </li>
                                   @else
+                                  <li class="waves-effect waves-light">
+                                  <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
 
-                            <li><a class="nav-link" href="{{ route('users.index') }}">Gestions des Utilisateurs</a></li>
+                                    document.getElementById('logout-form').submit();">
 
-                            <li><a class="nav-link" href="{{ route('roles.index') }}">Gestion des Roles</a></li>
+                                                {{ __('Logout') }}
+                                </a>
 
-                            <li><a class="nav-link" href="{{ route('employes.index') }}">Gestion des employes</a></li>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+
+                                    @csrf
+
+                            </form>
+                                  </li>
+                                 
+                                 
+                             
                             <li class="nav-item dropdown">
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">

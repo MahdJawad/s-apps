@@ -38,24 +38,24 @@
 @endif
                                        
 <div class="card-block">                                                        
-   <form class="form-material" method="PATCH",route="{{'users.update',$user->id}}">
+{!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
         <div class="form-group form-default form-static-label">
-            <input type="text" name="name" class="form-control" placeholder="Entrer le nom " required="">
+            <input type="text" name="name" class="form-control" placeholder="Entrer le nom " required="" value="{{$user->name}}">
                 <span class="form-bar"></span>
                     <label class="float-label">Nom</label>
         </div>
         <div class="form-group form-default form-static-label">
-            <input type="text" name="Email" class="form-control" placeholder="Entrer Email" required="">
+            <input type="text" name="email" class="form-control" placeholder="Entrer Email" required="" value="{{$user->email}}">
                 <span class="form-bar"></span>
                     <label class="float-label">Email (exa@gmail.com)</label>
         </div>
         <div class="form-group form-default form-static-label">
-            <input type="password" name="password" class="form-control" placeholder="Entrer mot de passe" required="">
+            <input type="password" name="password" class="form-control" placeholder="Entrer mot de passe" required="" >
                 <span class="form-bar"></span>
                     <label class="float-label">Mot de passe</label>
         </div>
         <div class="form-group form-default form-static-label">
-            <input type="confirm-password" name="confirm-password" class="form-control" placeholder="Confirmer mot de passe" required="">
+            <input type="password" name="confirm-password" class="form-control" placeholder="Confirmer mot de passe" required="">
                 <span class="form-bar"></span>
                     <label class="float-label">Mot de passe confirmer</label>
         </div>                                                          
@@ -68,7 +68,7 @@
         <div class="form-group form-default form-static-label text-center">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-    </form>
+        {!! Form::close() !!}
 </div>
 
 

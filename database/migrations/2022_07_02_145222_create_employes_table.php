@@ -14,15 +14,16 @@ class CreateEmployesTable extends Migration
     public function up()
     {
         Schema::create('employes', function (Blueprint $table) {
-            $table->UnsignedInteger('matricule');
-            $table->string('num_arrete');
+            $table->unsignedInteger('matricule')->primary();
+            $table->String('num_arrete');
+            $table->foreign('num_arrete')->references('num_arrete')->on('avancements');
             $table->UnsignedInteger('idFonction');
+            $table->foreign('idFonction')->references('idFonction')->on('fonctions');
             $table->UnsignedInteger('idCat');
+            $table->foreign('idCat')->references('idCat')->on('categories');
             $table->UnsignedInteger('idContrat');
-           /** $table->foreignId('idFonction')->constrained('fonctions');
-            *$table->foreignId('idCat')->constrained('categories');
-           *$table->foreignId('idContrat')->constrained('contrats');
-           */$table->string('nom_emp');
+            $table->foreign('idContrat')->references('idContrat')->on('contrats');
+            $table->string('nom_emp');
             $table->string('prenom_emp');
             $table->string('adress');
             $table->date('datenaiss');
@@ -31,6 +32,10 @@ class CreateEmployesTable extends Migration
             $table->integer('tel');
             $table->string('mail');
             $table->string('situation_matrimoniale');
+            $table->string('nb_femme');
+            $table->string('nb_enfant');
+            $table->string('date_prise_fonction');
+            $table->string('num_cnss');
             $table->timestamps();
         });
     }

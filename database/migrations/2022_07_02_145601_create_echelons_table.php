@@ -14,7 +14,10 @@ class CreateEchelonsTable extends Migration
     public function up()
     {
         Schema::create('echelons', function (Blueprint $table) {
-            $table->id();
+            $table->increments('idEchelon');
+            $table->UnsignedInteger('idCat');
+            $table->foreign('idCat')->references('idCat')->on('categories');
+            $table->string('libelleEchelon');
             $table->timestamps();
         });
     }

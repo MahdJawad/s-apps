@@ -3,10 +3,17 @@
     
 
 namespace App\Http\Controllers;
+use Spatie\Permission\Models\Role;
 
-    
+use DB;
+
+use Hash; 
 
 use App\Models\Employe;
+use App\Models\Avancement;
+use App\Models\Fonction;
+use App\Models\Categorie;
+use App\Models\Contrat;
 
 use Illuminate\Http\Request;
 
@@ -26,19 +33,19 @@ class EmployeController extends Controller
 
      */
 
-    function __construct()
+    /**function __construct()
 
     {
 
-         $this->middleware('permission:employe-list|employe-create|employe-edit|employe-delete', ['only' => ['index','show']]);
+    *     $this->middleware('permission:employe-list|employe-create|employe-edit|employe-delete', ['only' => ['index','show']]);
+    
+     *    $this->middleware('permission:employe-create', ['only' => ['create','store']]);
 
-         $this->middleware('permission:employe-create', ['only' => ['create','store']]);
+     *    $this->middleware('permission:employe-edit', ['only' => ['edit','update']]);
 
-         $this->middleware('permission:employe-edit', ['only' => ['edit','update']]);
+     *    $this->middleware('permission:employe-delete', ['only' => ['destroy']]);
 
-         $this->middleware('permission:employe-delete', ['only' => ['destroy']]);
-
-    }
+    }*/
 
     /**
 
@@ -54,7 +61,11 @@ class EmployeController extends Controller
 
     {
 
-        $employes = Employe::latest()->paginate(5);
+        $employes = Employe::join('fonctions', 'employes.idFonction', '=', 'fonctions.idFonction')
+                    ->join('categories', 'employes.idCat', '=', 'categories.idCat')
+                    ->join('contrats', 'employes.idContrat', '=', 'contrats.idContrat')
+                    ->get(['employes.*', 'fonctions.*','categories.*','contrats.*']);
+        
 
         return view('employes.index',compact('employes'))
 
@@ -77,8 +88,12 @@ class EmployeController extends Controller
     public function create()
 
     {
+        $avancements = Avancement::all();
+        $fonctions = Fonction::all();
+        $categories = Categorie::all();
+        $contrats = Contrat::all();
 
-        return view('employes.create');
+        return view('employes.create',compact('avancements','fonctions','categories','contrats'));
 
     }
 
@@ -102,8 +117,8 @@ class EmployeController extends Controller
 
         request()->validate([
 
-            'matricule' => 'required',
-            'num_arrete' => 'required',
+           
+            
             'idFonction' => 'required',
             'idCat' => 'required',
             'idContrat' => 'required',
@@ -114,16 +129,14 @@ class EmployeController extends Controller
             'lieunaiss' => 'required',
             'sexe' => 'required',
             'tel' => 'required',
-            'mail' => 'required',
+            'mail' => 'required|mail|unique:employes,mail',
             'situation_matrimoniale' => 'required',
 
         ]);
 
-    
+        $employe = Employe::create($request->all());
 
-        Employe::create($request->all());
-
-    
+        
 
         return redirect()->route('employes.index')
 
@@ -139,17 +152,20 @@ class EmployeController extends Controller
 
      *
 
-     * @param  \App\Employe  $employe
+     *@param  int  $matricule
 
      * @return \Illuminate\Http\Response
 
      */
 
-    public function show(Employe $employe)
+    public function show($matricule)
 
     {
 
-        return view('employes.show',compact('employe'));
+        $employe = Employe::find($matricule);
+        $fonctions = Fonction::get()->where("fonctions.matricule",$matricule);
+       
+        return view('employes.show',compact('employe','fonctions'));
 
     }
 
@@ -161,17 +177,20 @@ class EmployeController extends Controller
 
      *
 
-     * @param  \App\Employe  $product
+     * @param  \App\Employe  $employe
 
      * @return \Illuminate\Http\Response
 
      */
 
-    public function edit(Employe $employe)
+    public function edit($matricule)
 
     {
-
-        return view('employes.edit',compact('employe'));
+        $employe = Employe::find($matricule);
+        $fonctions = Fonction::all();
+        $categories = Categorie::all();
+        $contrats = Contrat::all();
+        return view('employes.edit',compact('employe','fonctions','categories','contrats'));
 
     }
 
@@ -216,7 +235,7 @@ class EmployeController extends Controller
 
     
 
-        $product->update($request->all());
+        $employe->update($request->all());
 
     
 
@@ -240,11 +259,11 @@ class EmployeController extends Controller
 
      */
 
-    public function destroy(Employe $employe)
+    public function destroy($matricule)
 
     {
 
-        $employe->delete();
+        DB::table("employes")->where('matricule',$matricule)->delete();
 
     
 

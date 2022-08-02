@@ -15,6 +15,9 @@ class CreateFonctionsTable extends Migration
     {
         Schema::create('fonctions', function (Blueprint $table) {
             $table->increments('idFonction');
+            $table->unsignedInteger('idDirection');
+            $table->foreign('idDirection')->references('idDirection')->on('directions');
+            $table->string('intituleFonction');
             $table->timestamps();
         });
     }

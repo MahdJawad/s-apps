@@ -28,3 +28,4 @@
     <!-- custom js -->
     <script type="text/javascript" src="{{asset('pages/dashboard/custom-dashboard.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/script.js')}} "></script>
+    <script type="text/javascript" src="{{asset('js/script.js')}} "></script>

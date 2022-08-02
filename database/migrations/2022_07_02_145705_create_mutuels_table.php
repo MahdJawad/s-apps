@@ -14,7 +14,8 @@ class CreateMutuelsTable extends Migration
     public function up()
     {
         Schema::create('mutuels', function (Blueprint $table) {
-            $table->id();
+            $table->integer('tauxSalariale');
+            $table->integer('tauxPatronal');
             $table->timestamps();
         });
     }

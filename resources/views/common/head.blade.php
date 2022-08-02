@@ -1,5 +1,5 @@
 <head>
-    <title>{{ config('app.name', 'Laravel') }} | @yield('title') </title>
+    <title>{{ config('app.name', 'Nowad RH') }} | @yield('title') </title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -13,6 +13,7 @@
       <meta name="description" content="Mega Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
       <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
       <meta name="author" content="codedthemes" />
+      <meta name="csrf-token" content="{{ csrf_token() }}">
       <!-- Favicon icon -->
       <link rel="icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon">
     <!-- Google font-->
@@ -33,4 +34,13 @@
         <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
+
+      
+      
+      <script src="{{asset('calendar/jquery.min.js')}}"></script>
+      <link rel="stylesheet" href="{{asset('calendar/fullcalendar.css')}}" />
+      <script src="{{asset('calendar/moment.min.js')}}"></script>
+      <script src="{{asset('calendar/fullcalendar.js')}}"></script>
+      <script src="{{asset('calendar/toastr.min.js')}}"></script>
+      <link rel="stylesheet" href="{{asset('calendar/toastr.min.css')}}" />
   </head>

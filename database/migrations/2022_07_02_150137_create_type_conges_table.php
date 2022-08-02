@@ -14,7 +14,8 @@ class CreateTypeCongesTable extends Migration
     public function up()
     {
         Schema::create('type_conges', function (Blueprint $table) {
-            $table->id();
+            $table->increments('idTypeConge');
+            $table->string('type');
             $table->timestamps();
         });
     }
