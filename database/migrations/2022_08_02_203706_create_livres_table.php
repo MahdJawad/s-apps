@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIndemnitesTable extends Migration
+class CreateLivresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateIndemnitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('indemnites', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('matricule');
-            $table->foreign('matricule')->references('matricule')->on('employes');
-            $table->string('libelle');
-            $table->float('valeur');
+        Schema::create('livres', function (Blueprint $table) {
+            $table->increments('idLivre');
+            $table->date('dateSaisie');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateIndemnitesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('indemnites');
+        Schema::dropIfExists('livres');
     }
 }

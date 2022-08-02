@@ -15,6 +15,10 @@ class CreatePrimesTable extends Migration
     {
         Schema::create('primes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('matricule');
+            $table->foreign('matricule')->references('matricule')->on('employes');
+            $table->string('libelle');
+            $table->float('valeur');
             $table->timestamps();
         });
     }
